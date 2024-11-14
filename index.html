@@ -1,0 +1,292 @@
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800" />
+
+  <title>Food Rescue</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+  </svg>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Leaflet.js for OpenStreetMap -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- FullCalendar for Event Calendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <style>
+    #map,
+    #calendar {
+      width: 100%;
+      height: 400px;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="relative flex size-full min-h-screen flex-col bg-[#F8F9FB] group/design-root overflow-x-hidden"
+    style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+    <div class="layout-container flex h-full grow flex-col">
+      <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#E4E9F1] px-10 py-3">
+        <div class="flex items-center gap-4 text-[#141C24]">
+          <div class="size-4">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_6_319)">
+                <path
+                  d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                  fill="currentColor"></path>
+              </g>
+              <defs>
+                <clipPath id="clip0_6_319">
+                  <rect width="48" height="48" fill="white"></rect>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <h2 class="text-[#141C24] text-lg font-bold leading-tight tracking-[-0.015em]">Community Food Rescue</h2>
+        </div>
+        <div class="flex flex-1 justify-end gap-8">
+          <div class="flex items-center gap-9">
+            <a class="text-[#141C24] text-sm font-medium leading-normal" href="index.html">Home</a>
+            <a class="text-[#141C24] text-sm font-medium leading-normal" href="about.html">About</a>
+            <a class="text-[#141C24] text-sm font-medium leading-normal" href="Vol.html">Get Involved</a>
+          <a class="text-[#141C24] text-sm font-medium leading-normal" href="com.html">Community</a>
+          </div>
+          <div class="flex gap-2">
+            <button
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#F4C753] text-[#141C24] text-sm font-bold leading-normal tracking-[0.015em]">
+              <span class="truncate">Donate Now</span>
+            </button>
+
+            <button
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#E4E9F1] text-[#141C24] text-sm font-bold leading-normal tracking-[0.015em]"
+              onclick="window.location.href='login.html';"
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#E4E9F1] text-[#141C24] text-sm font-bold leading-normal tracking-[0.015em]">
+              <span class="truncate">Log In</span>
+
+            </button>
+          </div>
+          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+            style='background-image: url("https://cdn.usegalileo.ai/stability/20a8dd25-09c1-41a8-bc9b-8c5225ff4e39.png");'>
+          </div>
+        </div>
+      </header>
+      <div class="px-40 flex flex-1 justify-center py-5">
+        <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+          <div class="@container">
+            <div class="flex flex-col gap-6 px-4 py-10 @[480px]:gap-8 @[864px]:flex-row">
+              <div
+                class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl @[480px]:h-auto @[480px]:min-w-[400px] @[864px]:w-full"
+
+                style='background-image: url("https://cdn.usegalileo.ai/sdxl10/31b05119-8c64-4c30-8cf0-b595b2925564.png");'
+                onclick="window.location.href='login.html';">
+              </div>
+              <div class="flex flex-col gap-6 @[480px]:min-w-[400px] @[480px]:gap-8 @[864px]:justify-center">
+                <div class="flex flex-col gap-2 text-left">
+                  <h1
+                    class="text-[#141C24] text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]">
+                    Join the Community Food Rescue Movement
+                  </h1>
+                  <h2
+                    class="text-[#141C24] text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
+                    Help us get food to those in need by donating, requesting, or volunteering today.
+                  </h2>
+                </div>
+                <button
+                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#F4C753] text-[#141C24] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]"
+                 
+                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#E4E9F1] text-[#141C24] text-sm font-bold leading-normal tracking-[0.015em]">
+                  <span class="truncate">Get Started</span>
+
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 @container">
+            <div
+              class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start shadow-[0_0_4px_rgba(0,0,0,0.1)] bg-[#F8F9FB]"
+              onclick="window.location.href='donate.html';">
+              <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                style='background-image: url("https://cdn.usegalileo.ai/sdxl10/0422a32c-2358-48eb-8bb1-5f630a2e18ae.png");'>
+              </div>
+              <div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1 py-4 @xl:px-4 px-4">
+                <p class="text-[#141C24] text-lg font-bold leading-tight tracking-[-0.015em]">Donate Food</p>
+                <div class="flex items-end gap-3 justify-between">
+                 
+                  <p class="text-[#3F5374] text-base font-normal leading-normal"
+                   >Give your surplus food a new purpose by
+                    donating to local communities.</p>
+                  <button
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#F4C753] text-[#141C24] text-sm font-medium leading-normal">
+                    <span class="truncate">Click</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 @container">
+            <div
+              class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start shadow-[0_0_4px_rgba(0,0,0,0.1)] bg-[#F8F9FB]"
+              onclick="window.location.href='request.html';">
+              <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                style='background-image: url("https://cdn.usegalileo.ai/stability/8176a538-6d0b-4946-bee3-7a85eeb33626.png");'>
+              </div>
+              <div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1 py-4 @xl:px-4 px-4">
+                <p class="text-[#141C24] text-lg font-bold leading-tight tracking-[-0.015em]">Request Food</p>
+                <div class="flex items-end gap-3 justify-between">
+                  <p class="text-[#3F5374] text-base font-normal leading-normal"
+                  >If you're in need, request food and
+                    we'll help you find local donations.</p>
+                  <button
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#F4C753] text-[#141C24] text-sm font-medium leading-normal">
+                    <span class="truncate">Request Now</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 @container">
+            <div
+              class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start shadow-[0_0_4px_rgba(0,0,0,0.1)] bg-[#F8F9FB]"
+              onclick="window.location.href='Vol.html';">
+              <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                style='background-image: url("https://cdn.usegalileo.ai/sdxl10/7ce88078-8655-4cef-8590-7d9fc12f2dc0.png");'>
+              </div>
+              <div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-1 py-4 @xl:px-4 px-4">
+                <p class="text-[#141C24] text-lg font-bold leading-tight tracking-[-0.015em]">Volunteer</p>
+                <div class="flex items-end gap-3 justify-between">
+                  <p class="text-[#3F5374] text-base font-normal leading-normal">Join our team of volunteers and make a
+                    difference with your time.</p>
+                  <button
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#F4C753] text-[#141C24] text-sm font-medium leading-normal">
+                    <span class="truncate">Sign Up</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- OpenStreetMap Section -->
+          <section>
+            <h3 class="text-[#141C24] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Nearby Events
+              and Locations</h3>
+            <div id="map" class="p-4 @container"></div>
+          </section>
+
+          <!-- Event Calendar Section -->
+          <section>
+            <h3 class="text-[#141C24] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Event Calendar
+            </h3>
+            <div id="calendar" class="p-4 @container"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript for Map and Calendar -->
+  <script>
+    // Initialize OpenStreetMap with Leaflet.js
+    const map = L.map('map').setView([40.73061, -73.935242], 13); // Default coordinates
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Sample locations for recommendations
+    const locations = [
+      { name: "Donation Center", lat: 40.73061, lng: -73.935242 },
+      { name: "Food Drive Event", lat: 40.74061, lng: -73.925242 },
+      { name: "Volunteer Meet-Up", lat: 40.73561, lng: -73.945242 }
+    ];
+    locations.forEach(location => {
+      L.marker([location.lat, location.lng]).addTo(map)
+        .bindPopup(`<b>${location.name}</b>`)
+        .openPopup();
+    });
+
+    // Get user location and update map view
+    navigator.geolocation.getCurrentPosition(position => {
+      const userLat = position.coords.latitude;
+      const userLng = position.coords.longitude;
+      map.setView([userLat, userLng], 13);
+      L.marker([userLat, userLng]).addTo(map).bindPopup("You are here").openPopup();
+    });
+
+    // Initialize FullCalendar for event calendar
+    document.addEventListener('DOMContentLoaded', function () {
+      const calendarEl = document.getElementById('calendar');
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: [
+          { title: 'Community Gathering', start: '2024-11-15' },
+          { title: 'Volunteer Training', start: '2024-11-18' },
+          { title: 'Donation Drive', start: '2024-11-22' }
+        ]
+      });
+      calendar.render();
+    });
+  </script>
+  <h3 class="text-[#141C24] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Recent Updates</h3>
+  <div class="flex items-center gap-4 bg-[#F8F9FB] px-4 min-h-14 justify-between">
+    <div class="flex items-center gap-4">
+      <div class="text-[#141C24] flex items-center justify-center rounded-lg bg-[#E4E9F1] shrink-0 size-10"
+        data-icon="MapPin" data-size="24px" data-weight="regular">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+          <path
+            d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z">
+          </path>
+        </svg>
+      </div>
+      <p class="text-[#141C24] text-base font-normal leading-normal flex-1 truncate">New Donation Drop-off Locations</p>
+    </div>
+    <div class="shrink-0">
+      <div class="text-[#141C24] flex size-7 items-center justify-center" data-icon="HandHeart" data-size="24px"
+        data-weight="regular">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+          <path
+            d="M230.33,141.06a24.34,24.34,0,0,0-18.61-4.77C230.5,117.33,240,98.48,240,80c0-26.47-21.29-48-47.46-48A47.58,47.58,0,0,0,156,48.75,47.58,47.58,0,0,0,119.46,32C93.29,32,72,53.53,72,80c0,11,3.24,21.69,10.06,33a31.87,31.87,0,0,0-14.75,8.4L44.69,144H16A16,16,0,0,0,0,160v40a16,16,0,0,0,16,16H120a7.93,7.93,0,0,0,1.94-.24l64-16a6.94,6.94,0,0,0,1.19-.4L226,182.82l.44-.2a24.6,24.6,0,0,0,3.93-41.56ZM119.46,48A31.15,31.15,0,0,1,148.6,67a8,8,0,0,0,14.8,0,31.15,31.15,0,0,1,29.14-19C209.59,48,224,62.65,224,80c0,19.51-15.79,41.58-45.66,63.9l-11.09,2.55A28,28,0,0,0,140,112H100.68C92.05,100.36,88,90.12,88,80,88,62.65,102.41,48,119.46,48ZM16,160H40v40H16Zm203.43,8.21-38,16.18L119,200H56V155.31l22.63-22.62A15.86,15.86,0,0,1,89.94,128H140a12,12,0,0,1,0,24H112a8,8,0,0,0,0,16h32a8.32,8.32,0,0,0,1.79-.2l67-15.41.31-.08a8.6,8.6,0,0,1,6.3,15.9Z">
+          </path>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="flex items-center gap-4 bg-[#F8F9FB] px-4 min-h-14 justify-between">
+    <div class="flex items-center gap-4">
+      <div class="text-[#141C24] flex items-center justify-center rounded-lg bg-[#E4E9F1] shrink-0 size-10"
+        data-icon="Clock" data-size="24px" data-weight="regular">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+          <path
+            d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z">
+          </path>
+        </svg>
+      </div>
+
+      <p class="text-[#141C24] text-base font-normal leading-normal flex-1 truncate">Volunteer Pickup Reminder</p>
+    </div>
+    <div class="shrink-0">
+      <div class="text-[#141C24] flex size-7 items-center justify-center" data-icon="HandHeart" data-size="24px"
+        data-weight="regular">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+          <path
+            d="M230.33,141.06a24.34,24.34,0,0,0-18.61-4.77C230.5,117.33,240,98.48,240,80c0-26.47-21.29-48-47.46-48A47.58,47.58,0,0,0,156,48.75,47.58,47.58,0,0,0,119.46,32C93.29,32,72,53.53,72,80c0,11,3.24,21.69,10.06,33a31.87,31.87,0,0,0-14.75,8.4L44.69,144H16A16,16,0,0,0,0,160v40a16,16,0,0,0,16,16H120a7.93,7.93,0,0,0,1.94-.24l64-16a6.94,6.94,0,0,0,1.19-.4L226,182.82l.44-.2a24.6,24.6,0,0,0,3.93-41.56ZM119.46,48A31.15,31.15,0,0,1,148.6,67a8,8,0,0,0,14.8,0,31.15,31.15,0,0,1,29.14-19C209.59,48,224,62.65,224,80c0,19.51-15.79,41.58-45.66,63.9l-11.09,2.55A28,28,0,0,0,140,112H100.68C92.05,100.36,88,90.12,88,80,88,62.65,102.41,48,119.46,48ZM16,160H40v40H16Zm203.43,8.21-38,16.18L119,200H56V155.31l22.63-22.62A15.86,15.86,0,0,1,89.94,128H140a12,12,0,0,1,0,24H112a8,8,0,0,0,0,16h32a8.32,8.32,0,0,0,1.79-.2l67-15.41.31-.08a8.6,8.6,0,0,1,6.3,15.9Z">
+          </path>
+        </svg>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</body>
+</html>
